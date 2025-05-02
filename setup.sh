@@ -1,75 +1,77 @@
 #!/bin/bash
 
-# Exit on error
-set -e
+set -euo pipefail
 
-# Function to check if a command exists
+# Pastel-style ANSI colors
+BLUE="\033[38;5;117m"
+GREEN="\033[38;5;120m"
+YELLOW="\033[38;5;222m"
+MAGENTA="\033[38;5;213m"
+RESET="\033[0m"
+BOLD="\033[1m"
+
+# Check if a command exists
 command_exists() {
   command -v "$1" >/dev/null 2>&1
 }
 
 # Check for required commands
 if ! command_exists git; then
-  echo "Error: git is not installed. Please install git first."
+  echo -e "${YELLOW}git is not installed. Please install git first.${RESET}"
   exit 1
 fi
 
 if ! command_exists bun; then
-  echo "Error: Bun is not installed. Please install it from https://bun.sh"
+  echo -e "${YELLOW}Bun is not installed. Install it from https://bun.sh${RESET}"
   exit 1
 fi
 
-# Get project name from command line argument or prompt
+# Get project name
 if [ $# -gt 0 ]; then
   PROJECT_NAME="$1"
 else
   if [ -t 0 ]; then
-    read -p "Enter your project name: " PROJECT_NAME
+    echo -ne "${BLUE}Enter your project name: ${RESET}"
+    read PROJECT_NAME
   else
-    echo "Error: Project name is required."
+    echo -e "${YELLOW}Project name is required.${RESET}"
     echo "Usage: curl -s https://raw.githubusercontent.com/mxfng/react-bahn/main/setup.sh | bash -s my-project-name"
     exit 1
   fi
 fi
 
 if [[ -z "$PROJECT_NAME" ]]; then
-  echo "Error: Project name cannot be empty."
+  echo -e "${YELLOW}Project name cannot be empty.${RESET}"
   exit 1
 fi
 
-echo "Cloning template repository..."
-if ! git clone https://github.com/mxfng/react-bahn.git "$PROJECT_NAME"; then
-  echo "Error: Failed to clone repository. Please check your internet connection and try again."
-  exit 1
-fi
+echo -e "${MAGENTA}Cloning template...${RESET}"
+git clone https://github.com/mxfng/react-bahn.git "$PROJECT_NAME"
 
 cd "$PROJECT_NAME" || {
-  echo "Error: Failed to change directory to $PROJECT_NAME"
+  echo -e "${YELLOW}Failed to enter directory '$PROJECT_NAME'${RESET}"
   exit 1
 }
 
-echo "Removing template files..."
-# Remove root level template files
+echo -e "${MAGENTA}Removing template boilerplate...${RESET}"
 rm -f README.md setup.sh
+rm -f src/features/README.md src/components/README.md src/layouts/README.md
 
-# Remove documentation files from source directories
-rm -f src/features/README.md \
-  src/components/README.md \
-  src/layouts/README.md
-
-echo "Setting up new git repository..."
+echo -e "${MAGENTA}Resetting Git repository...${RESET}"
 rm -rf .git
-git init
+git init >/dev/null
+git add .
+git commit -m "Initial commit" >/dev/null
 
-echo "Setting project name $PROJECT_NAME in package.json..."
+echo -e "${MAGENTA}Renaming project...${RESET}"
 if [[ "$OSTYPE" == "darwin"* ]]; then
   sed -i '' "s/\"name\": \"react-bahn\"/\"name\": \"$PROJECT_NAME\"/" package.json
 else
   sed -i "s/\"name\": \"react-bahn\"/\"name\": \"$PROJECT_NAME\"/" package.json
 fi
 
-echo "Setting project name $PROJECT_NAME in index.html..."
-cat >index.html <<'EOL'
+echo -e "${MAGENTA}Creating index.html...${RESET}"
+cat >index.html <<EOL
 <!doctype html>
 <html lang="en" class="dark">
   <head>
@@ -85,7 +87,10 @@ cat >index.html <<'EOL'
 </html>
 EOL
 
-echo "🚆 Setup complete! Your project '$PROJECT_NAME' is ready to go."
-echo "To start development, run:"
-echo "cd $PROJECT_NAME"
-echo "bun dev"
+echo ""
+echo -e "${GREEN}${BOLD}Setup complete!${RESET}"
+echo -e "${BLUE}Your project '${PROJECT_NAME}' is ready.${RESET}"
+echo -e "${MAGENTA}To start developing:${RESET}"
+echo -e "${BOLD}  cd $PROJECT_NAME${RESET}"
+echo -e "${BOLD}  bun install${RESET}"
+echo -e "${BOLD}  bun dev${RESET}"
