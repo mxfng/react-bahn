@@ -11,6 +11,7 @@
     "lint": "eslint .",
     "fix": "eslint --fix .",
     "format": "prettier --write .",
+    "typecheck": "tsc",
     "check": "bun format && bun lint && bun typecheck",
     "clean": "rm -rf ./node_modules ./dist",
     "visualize": "vite-bundle-visualizer",
