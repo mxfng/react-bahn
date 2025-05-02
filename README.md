@@ -31,7 +31,7 @@ Boostrap a project repo with a `curl` command:
 curl -s https://raw.githubusercontent.com/mxfng/react-bahn/main/setup.sh | bash -s my-project-name
 ```
 
-The setup script clones this repository, runs `git init`, updates the project name in `package.json` and `index.html`.
+The setup script clones this repository, runs `git init`, updates the project name in `package.json` and `index.html`, and makes an initial git commit.
 
 After setup completes, install the dependencies and start the development server:
 
