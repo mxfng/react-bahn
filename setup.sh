@@ -48,27 +48,27 @@ cd "$PROJECT_NAME" || {
   exit 1
 }
 
+echo "Removing template files..."
+# Remove root level template files
+rm -f README.md setup.sh
+
+# Remove documentation files from source directories
+rm -f src/features/README.md \
+  src/components/README.md \
+  src/layouts/README.md
+
 echo "Setting up new git repository..."
 rm -rf .git
 git init
 
-echo "Updating project name in package.json..."
+echo "Setting project name $PROJECT_NAME in package.json..."
 if [[ "$OSTYPE" == "darwin"* ]]; then
   sed -i '' "s/\"name\": \"react-bahn\"/\"name\": \"$PROJECT_NAME\"/" package.json
 else
   sed -i "s/\"name\": \"react-bahn\"/\"name\": \"$PROJECT_NAME\"/" package.json
 fi
 
-echo "Removing template files..."
-rm -f LICENSE README.md
-
-echo "Installing dependencies with Bun..."
-if ! bun install; then
-  echo "Error: Failed to install dependencies. Please check your Bun configuration."
-  exit 1
-fi
-
-echo "Creating new index.html..."
+echo "Setting project name $PROJECT_NAME in index.html..."
 cat >index.html <<'EOL'
 <!doctype html>
 <html lang="en" class="dark">
@@ -84,12 +84,6 @@ cat >index.html <<'EOL'
   </body>
 </html>
 EOL
-
-echo "Setting up git hooks..."
-if ! bun run prepare; then
-  echo "Error: Failed to set up git hooks."
-  exit 1
-fi
 
 echo "🚆 Setup complete! Your project '$PROJECT_NAME' is ready to go."
 echo "To start development, run:"

@@ -1,54 +1,64 @@
-# React + TypeScript + Vite
+# React Bahn
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+This template provides a comprehensive and opinionated setup for modern React development.
 
-Currently, two official plugins are available:
+Dependencies to highlight include:
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+- React 19
+- TypeScript 5.8.3 + SWC
+- Vite 6
+- TailwindCSS 4.1.5
+- Radix UI Primitives
+- Shadcn-style utilities
+- Framer Motion 12
+- React Router 7
+- React Hook Form 7 + zod
 
-## Expanding the ESLint configuration
+React Bahn also comes pre-packaged with popular development tooling, including battle-tested configurations for Bun, ESLint, Prettier, Husky, TypeScript, and Vitest.
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+## Dependencies
 
-```js
-export default tseslint.config({
-  extends: [
-    // Remove ...tseslint.configs.recommended and replace with this
-    ...tseslint.configs.recommendedTypeChecked,
-    // Alternatively, use this for stricter rules
-    ...tseslint.configs.strictTypeChecked,
-    // Optionally, add this for stylistic rules
-    ...tseslint.configs.stylisticTypeChecked,
-  ],
-  languageOptions: {
-    // other options...
-    parserOptions: {
-      project: ['./tsconfig.node.json', './tsconfig.app.json'],
-      tsconfigRootDir: import.meta.dirname,
-    },
-  },
-})
+- git
+- bun
+
+Also recommended: asdf (to use .tool-versions)
+
+## Quick Start
+
+Boostrap a project repo with a `curl` command:
+
+```bash
+curl -s https://raw.githubusercontent.com/mxfng/react-bahn/main/setup.sh | bash -s my-project-name
 ```
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+The setup script clones this repository, runs `git init`, updates the project name in `package.json` and `index.html`.
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
+After setup completes, install the dependencies and start the development server:
 
-export default tseslint.config({
-  plugins: {
-    // Add the react-x and react-dom plugins
-    'react-x': reactX,
-    'react-dom': reactDom,
-  },
-  rules: {
-    // other rules...
-    // Enable its recommended typescript rules
-    ...reactX.configs['recommended-typescript'].rules,
-    ...reactDom.configs.recommended.rules,
-  },
-})
+```bash
+cd my-project-name
+bun install
+bun dev
 ```
+
+## Structure
+
+The template follows a feature-first architecture with clear separation of concerns:
+
+```
+react-bahn/
+├── public/             # Static assets
+├── src/
+│   ├── api/            # API client and service abstractions
+│   ├── assets/         # Project assets (images, fonts, etc.)
+│   ├── components/     # Reusable UI components
+│   ├── features/       # Feature-specific components and logic
+│   ├── layouts/        # Layout components (wrappers, containers)
+│   ├── lib/            # Utility functions and shared code
+│   └── routes/         # Route or page components
+└── .husky/             # Git hooks
+```
+
+## Usage
+
+You may clone, re-use, re-write, and re-purpose this template for your projects however you'd like.
