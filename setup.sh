@@ -60,8 +60,6 @@ rm -f src/features/README.md src/components/README.md src/layouts/README.md
 echo -e "${MAGENTA}Resetting Git repository...${RESET}"
 rm -rf .git
 git init >/dev/null
-git add .
-git commit -m "Initial commit" >/dev/null
 
 echo -e "${MAGENTA}Renaming project...${RESET}"
 if [[ "$OSTYPE" == "darwin"* ]]; then
@@ -86,6 +84,13 @@ cat >index.html <<EOL
   </body>
 </html>
 EOL
+
+echo -e "${MAGENTA}Updating .gitignore...${RESET}"
+echo -e "\n.DS_Store\n.env*" >>.gitignore
+
+echo -e "${MAGENTA}Adding initial commit...${RESET}"
+git add .
+git commit -m "Initial commit" >/dev/null
 
 echo ""
 echo -e "${GREEN}${BOLD}Setup complete!${RESET}"

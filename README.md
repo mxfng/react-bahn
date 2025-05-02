@@ -1,4 +1,4 @@
-# React Bahn
+# React Bahn 🚆
 
 This template provides a comprehensive and opinionated setup for modern React development.
 
