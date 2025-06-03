@@ -19,10 +19,10 @@ if ! command_exists bun; then
 fi
 
 # Get project name from first argument
-PROJECT_NAME="${1:-}"
+PROJECT_NAME="$1"
 
 # Get project name if not provided
-if [ -z "$PROJECT_NAME" ]; then
+if [ -z "${PROJECT_NAME:-}" ]; then
   if [ -t 0 ]; then
     read -p "Enter your project name: " PROJECT_NAME
   else
