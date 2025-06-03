@@ -9,17 +9,19 @@ const Root: React.FC = () => {
   return (
     <RootLayout>
       <DotWave />
-      <div>
-        <TrainFrontTunnel className="size-28 stroke-primary" />
+      <div className="absolute inset-0 flex flex-col items-center justify-center">
+        <div>
+          <TrainFrontTunnel className="size-28 stroke-primary" />
+        </div>
+        <BlurIn>React Bahn</BlurIn>
+        <div>
+          <p>
+            Edit <InlineCode>src/app/routes/root.tsx</InlineCode> and save to
+            test HMR
+          </p>
+        </div>
+        <p>Read the docs and enjoy the ride</p>
       </div>
-      <BlurIn>React Bahn</BlurIn>
-      <div className="card">
-        <p>
-          Edit <InlineCode>src/app/routes/root.tsx</InlineCode> and save to test
-          HMR
-        </p>
-      </div>
-      <p className="read-the-docs">Read the docs and enjoy the ride</p>
     </RootLayout>
   );
 };

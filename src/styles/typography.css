@@ -1,0 +1,86 @@
+@layer base {
+  .prose {
+    @apply max-w-none leading-relaxed;
+  }
+
+  /* Narrow max-width for body content */
+  .prose h1,
+  .prose h2,
+  .prose h3,
+  .prose h4,
+  .prose p,
+  .prose ul,
+  .prose ol,
+  .prose hr {
+    @apply mx-auto max-w-screen-sm;
+  }
+
+  .prose h1 {
+    @apply mb-4;
+  }
+
+  .prose h2 {
+    @apply mt-10 mb-4;
+  }
+
+  .prose h3 {
+    @apply mt-8 mb-2;
+  }
+
+  .prose h4 {
+    @apply mt-6 mb-2;
+  }
+
+  .prose p {
+    @apply my-5 leading-loose;
+  }
+
+  .prose p + h1,
+  .prose p + h2 {
+    @apply mt-16;
+  }
+
+  .prose ul,
+  .prose ol {
+    @apply my-5 pl-6 leading-relaxed;
+  }
+
+  .prose ul {
+    @apply list-disc;
+  }
+
+  .prose ol {
+    @apply list-decimal;
+  }
+
+  .prose ul li,
+  .prose ol li,
+  .prose ul li > p,
+  .prose ol li > p {
+    @apply my-1;
+  }
+
+  .prose blockquote p::before {
+    content: open-quote;
+  }
+
+  .prose blockquote p::after {
+    content: close-quote;
+  }
+
+  .prose blockquote p {
+    @apply max-w-screen-md leading-normal;
+  }
+
+  .prose pre {
+    @apply bg-muted my-6 overflow-x-auto rounded p-4 text-sm;
+  }
+
+  .prose img {
+    @apply mx-auto my-12 w-full max-w-screen-md rounded-lg;
+  }
+
+  .prose p:has(> img:only-child) {
+    @apply max-w-none;
+  }
+}
