@@ -7,26 +7,52 @@ command_exists() {
   command -v "$1" >/dev/null 2>&1
 }
 
+# Default package manager
+PACKAGE_MANAGER="bun"
+
+# Parse arguments
+while [[ $# -gt 0 ]]; do
+  case $1 in
+    --package-manager=*)
+      PACKAGE_MANAGER="${1#*=}"
+      shift
+      ;;
+    *)
+      PROJECT_NAME="$1"
+      shift
+      ;;
+  esac
+done
+
+# Validate package manager
+if [[ "$PACKAGE_MANAGER" != "bun" && "$PACKAGE_MANAGER" != "npm" ]]; then
+  echo "Error: Package manager must be either 'bun' or 'npm'"
+  exit 1
+fi
+
 # Check for required commands
 if ! command_exists git; then
   echo "Error: git is not installed. Please install git first."
   exit 1
 fi
 
-if ! command_exists bun; then
+if [[ "$PACKAGE_MANAGER" == "bun" ]] && ! command_exists bun; then
   echo "Error: Bun is not installed. Install it from https://bun.sh"
   exit 1
 fi
 
-# Get project name
-if [ $# -gt 0 ]; then
-  PROJECT_NAME="$1"
-else
+if [[ "$PACKAGE_MANAGER" == "npm" ]] && ! command_exists npm; then
+  echo "Error: npm is not installed. Please install Node.js and npm first."
+  exit 1
+fi
+
+# Get project name if not provided
+if [ -z "${PROJECT_NAME:-}" ]; then
   if [ -t 0 ]; then
     read -p "Enter your project name: " PROJECT_NAME
   else
     echo "Error: Project name is required."
-    echo "Usage: curl -s https://raw.githubusercontent.com/mxfng/react-bahn/main/setup.sh | bash -s my-project-name"
+    echo "Usage: curl -s https://raw.githubusercontent.com/mxfng/react-bahn/main/setup.sh | bash -s my-project-name [--package-manager=bun|npm]"
     exit 1
   fi
 fi
@@ -59,6 +85,21 @@ else
   sed -i "s/\"name\": \"react-bahn\"/\"name\": \"$PROJECT_NAME\"/" package.json
 fi
 
+# Update package.json based on package manager
+if [[ "$PACKAGE_MANAGER" == "npm" ]]; then
+  echo "Updating scripts for npm..."
+  # Update test script
+  if [[ "$OSTYPE" == "darwin"* ]]; then
+    sed -i '' 's/"test": "bun test:unit && bun test:e2e"/"test": "npm run test:unit && npm run test:e2e"/' package.json
+    sed -i '' 's/"check": "bun format && bun lint && bun typecheck"/"check": "npm run format && npm run lint && npm run typecheck"/' package.json
+    sed -i '' 's/"git:add": "bun check && git add -p"/"git:add": "npm run check && git add -p"/' package.json
+  else
+    sed -i 's/"test": "bun test:unit && bun test:e2e"/"test": "npm run test:unit && npm run test:e2e"/' package.json
+    sed -i 's/"check": "bun format && bun lint && bun typecheck"/"check": "npm run format && npm run lint && npm run typecheck"/' package.json
+    sed -i 's/"git:add": "bun check && git add -p"/"git:add": "npm run check && git add -p"/' package.json
+  fi
+fi
+
 echo "Creating index.html..."
 cat >index.html <<EOL
 <!doctype html>
@@ -85,5 +126,5 @@ echo "Setup complete!"
 echo "Your project '$PROJECT_NAME' is ready."
 echo "To start developing:"
 echo "  cd $PROJECT_NAME"
-echo "  bun install"
-echo "  bun dev"
+echo "  $PACKAGE_MANAGER install"
+echo "  $PACKAGE_MANAGER dev"
