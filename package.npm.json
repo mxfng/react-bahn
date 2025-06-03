@@ -1,7 +1,0 @@
-{
-  "scripts": {
-    "test": "npm run test:unit && npm run test:e2e",
-    "check": "npm run format && npm run lint && npm run typecheck",
-    "git:add": "npm run check && git add -p"
-  }
-}

@@ -19,7 +19,7 @@ React Bahn also comes pre-packaged with popular development tooling, including b
 ## Dependencies
 
 - git
-- bun (default) or npm
+- bun
 
 Also recommended: asdf (to use .tool-versions)
 
@@ -28,11 +28,7 @@ Also recommended: asdf (to use .tool-versions)
 Boostrap a project repo with a `curl` command:
 
 ```bash
-# Using Bun (default)
 curl -s https://raw.githubusercontent.com/mxfng/react-bahn/main/setup.sh | bash -s my-project-name
-
-# Using npm
-curl -s https://raw.githubusercontent.com/mxfng/react-bahn/main/setup.sh | bash -s my-project-name --package-manager=npm
 ```
 
 The setup script clones this repository, runs `git init`, updates the project name in `package.json` and `index.html`, and makes an initial git commit.
@@ -41,16 +37,9 @@ After setup completes, install the dependencies and start the development server
 
 ```bash
 cd my-project-name
-# If using Bun
 bun install
 bun dev
-
-# If using npm
-npm install
-npm run dev
 ```
-
-Just a quick warning, I haven't tested compatibility for installing for `npm` via the `setup.sh` script, so there might be some issues on different platforms outside of macOS. Please report a bug if you find one.
 
 ## Structure
 
