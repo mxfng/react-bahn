@@ -82,10 +82,11 @@ react-bahn/
 ### Code Quality
 
 - `bun lint` - Run ESLint to check code
-- `bun fix` - Run ESLint with auto-fix
+- `bun lint:fix` - Run ESLint with auto-fix
 - `bun format` - Format code with Prettier
+- `bun format:check` - Check code formatting without making changes
 - `bun typecheck` - Run TypeScript type checking
-- `bun check` - Run format, lint, and typecheck in sequence
+- `bun check` - Run format check, lint check, and typecheck in sequence
 
 ### Git Workflow
 
@@ -101,8 +102,8 @@ react-bahn/
 
 The following commands run automatically on staged files:
 
-- `bun eslint --fix` - Lint and fix staged files
-- `bun prettier --write` - Format staged files
+- `bun lint:fix` - Lint and fix staged JavaScript/TypeScript files
+- `bun format:check` - Check formatting for staged JavaScript/TypeScript/CSS/Markdown files
 
 ## Usage
 
