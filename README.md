@@ -23,6 +23,10 @@ React Bahn also comes pre-packaged with popular development tooling, including b
 
 Also recommended: asdf (to use .tool-versions)
 
+## Motivations
+
+Configuring a new repo from scratch can be a real pain. Sometimes it's nice to use a configuration you like. Tweak it if you have to, but at least you won't have to install Prettier and ESLint for the 1000th time. This setup has been used in some production apps I've bootstrapped and has a nice combination of convention (React/TypeScript) and awesome developer tools (Bun/Vite/TailwindCSS) for a modern front-end stack (as of 2025 when writing this). Enjoy.
+
 ## Quick Start
 
 Boostrap a project repo with a `curl` command:
