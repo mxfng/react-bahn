@@ -93,11 +93,26 @@ if [[ "$PACKAGE_MANAGER" == "npm" ]]; then
     sed -i '' 's/"test": "bun test:unit && bun test:e2e"/"test": "npm run test:unit && npm run test:e2e"/' package.json
     sed -i '' 's/"check": "bun format && bun lint && bun typecheck"/"check": "npm run format && npm run lint && npm run typecheck"/' package.json
     sed -i '' 's/"git:add": "bun check && git add -p"/"git:add": "npm run check && git add -p"/' package.json
+    sed -i '' 's/"bun prettier --write"/"prettier --write"/' package.json
+    sed -i '' 's/"bun eslint --fix"/"eslint --fix"/' package.json
   else
     sed -i 's/"test": "bun test:unit && bun test:e2e"/"test": "npm run test:unit && npm run test:e2e"/' package.json
     sed -i 's/"check": "bun format && bun lint && bun typecheck"/"check": "npm run format && npm run lint && npm run typecheck"/' package.json
     sed -i 's/"git:add": "bun check && git add -p"/"git:add": "npm run check && git add -p"/' package.json
+    sed -i 's/"bun prettier --write"/"prettier --write"/' package.json
+    sed -i 's/"bun eslint --fix"/"eslint --fix"/' package.json
   fi
+fi
+
+# Create a temporary file for the package.json modifications
+TMP_FILE=$(mktemp)
+if [[ "$PACKAGE_MANAGER" == "npm" ]]; then
+  jq '.scripts.test = "npm run test:unit && npm run test:e2e" |
+      .scripts.check = "npm run format && npm run lint && npm run typecheck" |
+      .["git:add"] = "npm run check && git add -p" |
+      .["lint-staged"]["**/*.{js,jsx,ts,tsx,css,scss,md}"] = "prettier --write" |
+      .["lint-staged"]["**/*.{js,jsx,ts,tsx}"] = "eslint --fix"' package.json > "$TMP_FILE"
+  mv "$TMP_FILE" package.json
 fi
 
 echo "Creating index.html..."
