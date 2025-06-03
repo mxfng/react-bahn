@@ -23,8 +23,8 @@
     "prepare": "husky"
   },
   "lint-staged": {
-    "**/*.{js,jsx,ts,tsx,css,scss,md}": "bun prettier --write",
-    "**/*.{js,jsx,ts,tsx}": "bun eslint --fix"
+    "**/*.{js,jsx,ts,tsx}": "bun eslint --fix",
+    "**/*.{js,jsx,ts,tsx,css,scss,md}": "bun prettier --write"
   },
   "dependencies": {
     "@radix-ui/react-label": "^2.1.4",

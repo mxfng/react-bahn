@@ -63,6 +63,47 @@ react-bahn/
 └── .husky/             # Git hooks
 ```
 
+## Available Scripts
+
+### Development
+
+- `bun dev` - Start the development server with Vite
+- `bun build` - Build the project for production (TypeScript + Vite)
+- `bun preview` - Preview the production build locally
+- `bun serve` - Preview the production build with host access
+
+### Testing
+
+- `bun test:unit` - Run unit tests with Vitest
+- `bun test:e2e` - Run end-to-end tests with Playwright
+- `bun test:ui` - Run Playwright tests with UI mode
+- `bun test` - Run both unit and e2e tests
+
+### Code Quality
+
+- `bun lint` - Run ESLint to check code
+- `bun fix` - Run ESLint with auto-fix
+- `bun format` - Format code with Prettier
+- `bun typecheck` - Run TypeScript type checking
+- `bun check` - Run format, lint, and typecheck in sequence
+
+### Git Workflow
+
+- `bun git:add` - Run checks and stage files interactively
+
+### Maintenance
+
+- `bun clean` - Remove node_modules and dist directories
+- `bun visualize` - Generate bundle visualization report
+- `bun prepare` - Set up Husky git hooks
+
+### Lint Staged
+
+The following commands run automatically on staged files:
+
+- `bun eslint --fix` - Lint and fix staged files
+- `bun prettier --write` - Format staged files
+
 ## Usage
 
 You may clone, re-use, re-write, and re-purpose this template for your projects however you'd like.
