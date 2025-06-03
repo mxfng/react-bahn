@@ -85,7 +85,7 @@ react-bahn/
 - `bun lint:fix` - Run ESLint with auto-fix
 - `bun format` - Format code with Prettier
 - `bun format:check` - Check code formatting without making changes
-- `bun typecheck` - Run TypeScript type checking
+- `bun tsc` - Run TypeScript type checking
 - `bun check` - Run format check, lint check, and typecheck in sequence
 
 ### Git Workflow
