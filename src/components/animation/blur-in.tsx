@@ -1,5 +1,5 @@
-import { motion, useInView } from "framer-motion";
 import { useRef } from "react";
+import { motion, useInView } from "framer-motion";
 
 export const BlurIn = ({ children }: { children: React.ReactNode }) => {
   const ref = useRef(null);

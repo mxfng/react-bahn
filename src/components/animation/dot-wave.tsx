@@ -1,5 +1,5 @@
-import { useAnimationFrame } from "framer-motion";
 import React, { useEffect, useRef, useState } from "react";
+import { useAnimationFrame } from "framer-motion";
 
 const SPACING = 24; // px between dots
 const DOT_SIZE = 4;

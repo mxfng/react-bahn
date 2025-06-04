@@ -2,6 +2,7 @@ import "./styles/template.css";
 
 import { ErrorBoundary, FallbackProps } from "react-error-boundary";
 import { RouterProvider } from "react-router-dom";
+
 import ErrorFallback from "./components/typography/error-fallback";
 import { router } from "./router";
 
